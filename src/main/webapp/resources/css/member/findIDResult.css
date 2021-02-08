@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+.findIDResult {
+	width: 410px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.findIDResult h2 {
+	padding: 0 0 10px;
+	font-size: 32px;
+	color: #111111;
+	border-bottom: 2px solid #111;
+	text-align: left;
+	line-height: 100%;
+}
+
+.findIDResult form > ul {
+	padding: 33px 0 33px;
+}
+.findIDResult form > ul li{
+	padding: 0 0 12px;
+}
+.findIDResult p{
+	font-size: 20px;
+	color: #666;
+	text-align: center;
+	line-height: 120%;
+}
+.findIDResult p >span{
+	font-size: 25px;
+	color: #444;
+}
+.findIDResult button {
+	width: 100%;
+	height: 56px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #666;
+	border-radius: 28px;
+	transition-duration:0.5s; 
+}
+
+.findIDResult button:hover{
+	font-size: 20px;
+ 	font-weight: bold;
+}

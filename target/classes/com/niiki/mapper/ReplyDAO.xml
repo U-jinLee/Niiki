@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niiki.mapper.ReplyDAO">
+	<insert id="replyWrite">
+		insert
+		into tblReply(bno, reply, replyer)
+		values(#{bno}, #{reply}, #{replyer})
+	</insert>
+	<select id="replyList" resultType="com.niiki.dto.TblReplyDTO">
+		select *
+		from tblReply
+		where bno = #{bno};
+	</select>
+	<delete id="replyDelete">
+		delete 
+		from tblReply
+		where rno=#{rno}
+	</delete>
+	
+	<select id="updateComtCount">
+		update board
+		set
+		comtCount = (select count(*)
+		from tblreply where bno=#{bno})
+		where bno = #{bno}
+	</select>
+	
+	<!-- <select id="replyCount" parameterType="int" resultType="int">
+		select count(*)
+		from tblreply
+		where bno = #{bno}
+	</select> -->
+</mapper>

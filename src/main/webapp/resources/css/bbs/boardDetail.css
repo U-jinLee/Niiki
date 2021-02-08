@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+.article{
+	background-color: #ffffff;
+}
+p {
+	font-size: 14px;
+}
+.article .article_wrap{
+	position: relative;
+	width: 860px;
+	margin: 0 auto;
+	font-size: 12px;
+}
+.articleTopBtn{
+	padding: 7px 0 7px;
+}
+
+.defaultBtn{
+	min-width: 46px;
+	height: 36px;
+	margin-left: 10px;
+	padding: 0 12px;
+	font-size: 13px;
+	line-height: 36px;
+	border: 1px solid #ebecef;
+	background-color:#ebecef;
+	border-radius: 6px;
+}
+
+.articleContentBox {
+	padding: 29px 29px 0;
+	border: 1px solid #ebecef;
+	border-radius: 6px;
+}
+
+.articleContentBox .article_header {
+	position: relative;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ebecef;
+}
+
+.articleTitle .title_area .title_text{
+	font-weight: 400;
+	font-size: 26px;
+}
+
+.articleTitle {
+	margin-bottom: 12px;
+	font-size: 13px;
+}
+
+.writerInfo .thumb {
+	position: relative;
+	float: left;
+	margin-right: 10px;
+	width: 36px;
+	height: 36px;
+}
+.writerInfo .profile_area {
+ 
+}
+
+
+.writerInfo .thumb img{
+	border-radius: 50%;
+}
+
+.writeContent {
+	padding:0 0 15px;
+}
+
+.button {
+    display: inline-block;
+    min-width: 46px;
+    height: 34px;
+    line-height: 36px;
+    font-size: 13px;
+    color: var(--skinCommentWriterText);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: top;
+    float: right;
+}
+
+.box_left {
+	position: absolute;
+	left: 100%;
+	margin: -5px 0 0 -140px;
+}
+
+<!--commentList-->
+
+h4{
+	padding-bottom: 5px;
+}
+
+.commentBox .commentOption {
+	position: relative;
+	padding-top: 16px;
+	margin-bottom: 11px;
+}
+
+.commentBox .commentOption .commentTitle {
+	margin-right: 12px;
+	font-size: 17px;
+}
+
+textarea{
+	resize:none;
+	border: none;
+	width: 100%;
+	}
+
+div{
+	display: block;
+}
+
+.commentBox {
+	margin-top: -17px;
+	border-top: 1px solid #ebecef;
+}
+
+.commentWriter {
+	margin:12px 0 29px;
+	padding: 16px 10px 10px 18px;
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	border-radius: 6px;
+	box-sizing: border-box;
+	background: #fff;
+}
+.commentWriter_after {
+	margin:12px 0 29px;
+	padding: 16px 10px 10px 18px;
+	border-radius: 6px;
+	box-sizing: border-box;
+	background: #fff;
+}
+.commentAttach{
+	position: relative;
+}

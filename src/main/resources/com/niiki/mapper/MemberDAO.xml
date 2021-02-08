@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.niiki.mapper.MemberDAO">
+	<select id="userID_check" resultType="int">
+		select count(*)
+		from member 
+		where user_id=#{user_id};
+	</select>
+	
+	<insert id="memberJoin">
+		insert into member values(
+		#{user_id}, #{user_pw}, #{user_name}, #{user_birth}, #{user_gender}, #{user_email}, now(), now(), 'false', #{approvalKey}, null)
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="memberLogin" parameterType="String" resultType="com.niiki.dto.MemberDTO">
+		select *  
+		from member
+		where user_id=#{user_id}
+	</select>
+	<!-- 로그인 일자 업데이트 -->
+	<update id="update_log" parameterType="String">
+		update member
+		set logDate = now()
+		where user_id = #{user_id}
+	</update>
+	
+	<!-- 이메일 인증 -->
+	<update id="approval_member" parameterType="com.niiki.dto.MemberDTO">
+		update member
+		set approvalStatus = 'true'
+		where user_id=#{user_id} and approvalKey=#{approvalKey}
+	</update>
+	<select id="findIDForm" parameterType="String" resultType="com.niiki.dto.MemberDTO">
+		select user_id, user_email
+		from member
+		where user_email = #{user_email}
+	</select>
+	<!-- 비밀번호 변경 -->
+		<update id="updatePw" parameterType="com.niiki.dto.MemberDTO">
+			update member 
+			set user_pw = #{user_pw}
+			where user_id= #{user_id}
+		</update>
+		
+		<update id="updateMyPage" parameterType="com.niiki.dto.MemberDTO">
+			update member 
+			set user_email = #{user_email} 
+			where user_id= #{user_id}
+		</update>
+		
+		<delete id="withDrawal" parameterType="com.niiki.dto.MemberDTO">
+			delete 
+			from member 
+			where user_id= #{user_id} and user_pw= #{user_pw};
+		</delete>
+		
+		<select id="getProfile" parameterType="String">
+			select * 
+			from tblAttach 
+			where user_id = #{user_id};
+		</select>
+				
+</mapper>

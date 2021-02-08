@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.niiki.mapper.BoardDAO">
+	<insert id="boardWrite" parameterType="com.niiki.dto.BoardDTO">
+		insert 
+		into board(user_id, subject, content, approvalStatus) 
+		values(#{user_id}, #{subject}, #{content},'false')
+	</insert>
+	<!-- 게시글 수정 -->
+	<update id="boardModify" parameterType="com.niiki.dto.BoardDTO">
+		update board
+		set subject=#{subject}, content=#{content}
+		where bno=#{bno}
+	</update>
+	<!-- 고민 게시판으로 보내기 -->
+	<update id="approval_board" parameterType="com.niiki.dto.BoardDTO">
+		update board
+		set approvalStatus = 'true'
+		where bno=#{bno}
+	</update>
+	
+	<!-- 게시글 불러오기 -->
+	<select id="BBSList" resultType="com.niiki.dto.BoardDTO">
+		select * from (
+		select @rownum:=@rownum+1 as rownum, b.*
+		from (select @rownum:=0) as tme, board as b
+		<if test='type=="s"'><!-- mybatis if구문 -->
+			where subject like concat('%',#{keyword},'%')
+		</if>
+		<if test='type=="c"'>
+			where content like concat('%',#{keyword},'%')
+		</if>
+		<if test='type=="u"'>
+			where user_id like concat('%',#{keyword},'%')
+		</if>
+		order by bno desc)
+		as pagingBoard
+		<!-- CDATA를 활용해 혼동되는 '<,>'표시를 명확히 해줄 필요가 있다. -->
+		<![CDATA[where rownum >= (#{pageNum}-1)*#{amount} and rownum <= #{pageNum}*#{amount} and approvalStatus='true']]>;
+	</select>
+	<!-- 게시글 삭제 -->
+	<delete id="BBSDelete">
+		delete
+		from board
+		where bno = #{bno};
+	</delete>
+	
+	<!-- 내 전용 게시글 불러오기 -->
+	<select id="myBBSList" resultType="com.niiki.dto.BoardDTO">
+		select * from (
+		select @rownum:=@rownum+1 as rownum, b.*
+		from (select @rownum:=0) as tme, board as b
+		<if test='type=="s"'><!-- mybatis if구문 -->
+			where subject like concat('%',#{keyword},'%')
+		</if>
+		<if test='type=="c"'>
+			where content like concat('%',#{keyword},'%')
+		</if>
+		<if test='type=="u"'>
+			where user_id like concat('%',#{keyword},'%')
+		</if>
+		order by bno desc)
+		as pagingBoard
+		<!-- CDATA를 활용해 혼동되는 '<,>'표시를 명확히 해줄 필요가 있다. -->
+		<![CDATA[where rownum >= (#{pageNum}-1)*#{amount} and rownum <= #{pageNum}*#{amount} and user_id=#{user_id}]]>;
+	</select>
+	
+	<!-- 게시판 디테일 -->
+	<select id="BBSDetail" resultType="com.niiki.dto.BoardDTO">
+		select *
+		from board
+		where bno = #{bno};
+	</select>
+	<!-- 조회수 증가 -->
+	<update id="increaseReadCount">
+		update board
+		set readCount= readCount + 1
+		where bno = #{bno};
+	</update>
+	<!-- total 가져오기 -->
+	<select id="getTotal" resultType="int">
+		select count(*) from board where approvalStatus='true';
+	</select>
+	<!-- Mytotal 가져오기 -->
+	<select id="myGetTotal" parameterType="String" resultType="int">
+		select count(*) from board where user_id = #{user_id};
+	</select>
+	
+	<!--좋아요 기능-->
+	<insert id="createBoardLike">
+		insert into boardLike(bno, user_id) values(#{bno},#{user_id})
+	</insert>
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteBoardLike">
+		delete from boardLike where bno = #{bno} and user_id = #{user_id}
+	</delete>
+	<!-- board update -->
+	<select id="updateBoardLike">
+		update board
+		set
+		recCount = (select count(*)
+		from boardLike where bno = #{bno})
+		where bno = #{bno}
+	</select>
+	
+	<select id="getBoardLike" resultType="int">
+		select count(boardLikeId)
+		from boardLike
+		where bno = #{bno} and user_id = #{user_id}
+	</select>
+	<!-- 좋아요 가져오기 -->
+	<select id="recCount" parameterType="int" resultType="int">
+		select count(*)
+		from boardLike
+		where bno = #{bno}
+	</select>
+	
+</mapper>

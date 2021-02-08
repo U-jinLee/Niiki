@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+.findIDFrm1 {
+	width: 410px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.findIDFrm1 h2 {
+	padding: 0 0 10px;
+	font-size: 32px;
+	color: #111111;
+	border-bottom: 2px solid #111;
+	text-align: left;
+	line-height: 100%;
+}
+
+.findIDFrm1 form > ul {
+	padding: 33px 0 33px;
+}
+
+.findIDFrm1 form > ul li{
+	padding: 0 0 12px;
+}
+
+.findIDFrm1 form > ul li input{
+	height: 46px;
+	width: 100%;
+	box-sizing: border-box;
+	text-indent: 16px;
+}
+
+.findIDFrm1 button{
+	width: 100%;
+	height: 56px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #666;
+	border-radius: 28px;
+	transition-duration:0.5s; 
+}
+
+.findIDFrm1 button:hover{
+	font-size: 20px;
+ 	font-weight: bold;
+}

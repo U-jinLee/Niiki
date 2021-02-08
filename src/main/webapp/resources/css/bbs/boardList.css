@@ -1,0 +1,160 @@
+@charset "UTF-8";
+
+select{
+	border-style: none;
+}
+
+.cafe_body {
+	width: 1080px;
+	margin: 0 auto;
+}
+
+.prev_next {
+	background-color: #f9f9f9;
+	margin-top: 32px;
+	height: 40px;
+	padding-top: 16px;
+	text-align: center;
+}
+.prev_next a {
+	color: #333;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	margin: 0 2px;
+	box-sizing: border-box;
+	line-height: 24px;
+	font-family: arial, sans-serif;
+}
+
+.list_search {
+	border-top-color: #ebebea;
+	background-color: #f9f9f8;
+	padding: 16px 0 16px;
+	border-top: 1px solid #ebebea;
+	text-align: center;
+}
+
+.input_search_area {
+	display: inline-block;
+}
+
+.input_component {
+	float: left;
+	border-right: 0;
+	border-color: #ddd;
+	background-color: #fff;
+	
+	display: inline-block;
+	position: relative;
+	height: 36px;
+	box-sizing: border-box;
+	border: solid 1px #ebecef;
+	vertical-align: top;
+}
+
+.input_component input{
+	background-color: #fff;
+	color: #333;
+	width: 80%;
+	height: 100%;
+	padding: 0 12px;
+	border: 0; 
+}
+
+.btn_search_green {
+	display: inline-block;
+	width: 56px;
+	height: 36px;
+	background-color: #ebecef;
+	border:0;
+	color:#fff;
+	cursor: pointer;
+}
+
+.selectComponent {
+	border-color: #ddd;
+	background-color: #fff;
+	display: inline-block;
+	position: relative;
+	height: 36px;
+	box-sizing: border-box;
+	border: solid 1px #ebecef;
+	text-align: left;
+	vertical-align: top;
+}
+
+<!--게시판 리스트 디자인-->
+.info_tit {
+	display:block;
+	margin-top: -1px;
+	line-height: 25px;
+	margin-bottom: 10px;
+}
+
+.info_tit .sub_tit_color {
+	display: inline;
+	font-weight: 600;
+	font-size: 22px;
+	line-height: 24px;
+	vertical-align: sub;
+}
+table {
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+colgroup{
+	display:table-column-group;
+}
+
+thead {
+	display: table-header-group;
+	vertical-align: middle
+	border-color:inherit;
+}
+tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+th {
+	display:table-cell;
+	vertical-align:inherit;
+	font-weight:bold;
+	border-top-color: #333;
+	border-bottom-color: #f2f2f2;
+	color: #4e4e4e;
+	height: 40px;
+	padding: 2px;
+	border-top: 1px solid #666;
+	border-bottom: 1px solid #f2f2f2;
+	text-align: center;
+}
+
+.articleBoard table{
+	width: 100%;
+	word-break: break-word;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+tbody {
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+td{
+	border-bottom-color: #f2f2f2;
+	height: 28px;
+	padding: 4px 7px;
+	border-bottom: 1px solid #f2f2f2;
+	display: table-cell;
+	vertical-align: inherit;
+	text-align: center;
+}
+
+.writeBtn {
+	float: right;
+}

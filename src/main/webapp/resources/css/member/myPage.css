@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+.myPage {
+	width : 410px;
+	height: 900px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#ex_file{
+	display: block;
+	margin: 0px auto;
+}
+
+img {
+	display: block;
+	margin: 0px auto;
+	width : 150px;
+	height: 150px;
+	text-align: center;
+}
+
+.profile_image {
+	border-radius: 260px;
+	object-fit: cover;
+}
+
+.myPage h2 {
+	padding: 0 0 10px;
+	font-size: 32px;
+	color:#111111;
+	text-align: center;
+}
+
+.myPage form > ul {
+	padding: 10px 0 0;
+}
+.myPage form > ul li{
+	padding: 0 0 6px;
+}
+
+.myPage form li:nth-child(odd){
+	font-size: 16px;
+	padding: 0 0 10px;
+	color: #111;
+}
+
+.myPage form > ul li input{
+	height: 46px;
+	width: 100%;
+	box-sizing: border-box;
+	text-indent: 16px;
+}
+
+.myPage button{
+	width:100%;
+	height: 56px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #666;
+	border-radius: 28px;
+	transition-duration:0.5s; 
+}
+.myPage button:hover{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.pw_wrap {
+	display: table;
+	width: 100%;
+}
+
+#old_pw {
+	display: table-cell;
+	width: 200px;
+}
+
+#user_pw {
+	display: table-cell;
+	width: 200px;
+	margin-left: 10px;
+}
+
+.user_pw_with {
+	width: 100%;
+}

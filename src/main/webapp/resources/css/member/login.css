@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+.login {
+    width: 410px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);/*자신의 크기의 반만큼 X, Y축으로 옮겨진다.*/
+}
+
+.login h2 {
+    padding: 0 0 20px;
+    font-size: 32px;
+    color: #111111;
+    border-bottom: 2px solid #111;
+    text-align: center;
+    line-height: 100%; /*줄 간격을 초기화 하는 방법*/
+}
+
+.login form > ul{
+    padding: 40px 0 33px ;
+}
+
+.login form > ul li {
+    padding: 0 0 12px;
+}
+
+.login form > ul li input {
+    height: 46px;
+    width: 100%;
+    box-sizing: border-box;/* border box를 포함한 크기 측정*/
+    text-indent: 16px;/*상속으로 인해 placeholder에도 적용됨*/
+}
+
+.login form > ul li input::-webkit-input-placeholder/*placeholder잡는 방법*/ {
+font-size: 16px; color: #9fa19f;
+}
+
+.login form > ul li input[type="checkbox"] {
+    position: absolute; left: -3000%;
+}
+
+.login form > ul li input[type="checkbox"]+label {
+    height: 36px; line-height: 36px;
+}
+.login form > ul li input[type="checkbox"]+label:before {
+    content: ""; width: 18px; height: 18px; border: 1px solid #666; background: #ffffff;
+    display: inline-block; vertical-align: -5px; margin: 0 10px 0 0;
+}
+.login form > ul li input[type="checkbox"]:checked + label:before {
+    background: url(../image/ico_check_on.png) no-repeat center #333; border-color:#333;
+}
+.login button { width: 100%; height: 56px; font-size: 18px; color: #fff;
+    background-color: #666;
+    border-radius: 28px;
+    transition-duration:0.3s; 
+}
+
+.login button:hover{
+	font-size: 20px;
+	font-weight: bold;
+ 
+}
+#kakao { 
+    color: #000000;
+    opacity: 85%;
+    background-color: #FEE500;
+}
+.login div { padding: 0 0 45px;}
+
+.login div ul {
+display: flex; 
+justify-content: center;
+}
+.login div ul li{
+    position: relative;
+    padding: 0 18px;
+}
+.login div ul li ~ li:after {
+    content: ""; position: absolute; left: 0; top: 4px; height:14px; width: 1px; background: #111; transform: rotate(25deg);
+}
+.login div ul a{
+    font-size: 14px; color: #111;
+}

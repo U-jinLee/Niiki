@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+.articleWrite .layout_wrap{
+	width: 1080px;
+	margin: 0 auto;
+}
+
+section {
+	display: block;
+}
+button {
+	cursor: pointer;
+	border: 0;
+	background: none;
+}
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.writingWrap{
+	color: #000;
+}
+
+.writingHeader {
+	position: relative;
+	margin-top: 20px;
+	border-bottom: 1px solid #323232;
+}
+
+.writingHeader .tool_area{
+	position: absolute;
+	bottom: 12px;
+	right: 0;
+}
+
+.writingHeader .title{
+	margin-bottom: 16px;
+	font-size: 22px;
+	color: #000000;
+}
+
+.writingHeader .tool_area .btn_temp_save {
+	padding: 0 10px 0 11px;
+	line-height: 36px;
+	font-weight: 700;
+	font-size: 13px;
+	color: #000000;
+}
+
+.writingContent{
+	position: relative;
+	padding-top: 12px;
+	padding-bottom: 50px;
+}
+.writingEditor{
+	float: left;
+	width: 100%;
+}
+
+.FlexableTextArea .textarea_content{
+	padding-top: 15px;
+}
+
+.FlexableTextArea .textarea_input{
+	display: block;
+	width: 100%;
+	min-height: 40px;
+	padding: 11px 12px 10px;
+	border: 1px solid #ebecef;
+	box-sizing: border-box;
+	overflow: none;
+	resize: none;
+	word-break: break-all;
+	font-size: 15px;
+	letter-spacing: -.23px;
+	line-height: 17px;
+	outline: none;
+}
