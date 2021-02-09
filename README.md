@@ -269,6 +269,60 @@ public MemberDTO findIDForm(HttpServletResponse response, String user_email) thr
 		where user_email = #{user_email}
 	</select>
 ```
+### 비밀번호 찾기
+![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/71121964/107356838-a82d6f80-6b14-11eb-9d04-50d3923d848b.gif)
+> 아이디와 이메일을 입력해 회원의 변경된 비밀번호를 찾을 수 있습니다.
+#### Controller
+```java
+//비밀번호 찾기
+	@GetMapping("/findPwForm")
+	public String findPwForm(@ModelAttribute("findPwInfo") MemberDTO mdto, Model model) throws Exception{
+		model.addAttribute("user_id", mdto.getUser_id());
+		model.addAttribute("user_email", mdto.getUser_email());
+		return "/member/findPwForm";
+	}
+	
+	@PostMapping("/findPw")
+	public void findPw(@ModelAttribute MemberDTO mdto, HttpServletResponse response)throws Exception {
+		mservice.findPw(response, mdto);	
+	}
+```
+#### Service
+```java
+public void findPw(HttpServletResponse response, MemberDTO mdto) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		//아이디가 없으면
+		if(mdao.userID_check(mdto.getUser_id()) == 0) {
+			out.println("아이디가 없습니다.");
+			out.close();
+		}
+		//가입에 사용한 이메일이 아니면
+		else if(!mdto.getUser_email().equals(mdao.memberLogin(mdto.getUser_id()).getUser_email())) {
+			out.println("잘못된 이메일입니다.");
+			out.close();
+		} else {
+			String pw = "";
+			for(int i=0; i<12; i++) {
+				pw += (char)((Math.random()*26)+97);
+			}
+			mdto.setUser_pw(pw);
+			mdao.updatePw(mdto);
+			send_mail(mdto, "findPw");
+			out.print("이메일로 임시 비밀번호를 발송했습니다.");
+			out.close();
+		}
+	}
+```
+#### DAO
+```java
+<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="com.niiki.dto.MemberDTO">
+		update member 
+		set user_pw = #{user_pw}
+		where user_id= #{user_id}
+	</update>
+```
 
 ### 내 정보
 #### Controller
@@ -291,16 +345,6 @@ public MemberDTO findIDForm(HttpServletResponse response, String user_email) thr
 ```java
 ```
 ### 고민상담소
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
-### 비밀번호 찾기
 #### Controller
 ```java
 ```
