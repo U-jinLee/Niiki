@@ -47,90 +47,7 @@
 - 글수정 창
 - 이메일 보내기 결과창
 ## 구현 기능 설명
-### 로그인 페이지 
-![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/71121964/106282509-068c5f80-6284-11eb-933d-236eb73f99fc.gif)
-> 로그인 후 메인 화면의 문구가 변경돼 사용자를 반겨줍니다. 이메일 인증을 받아야 로그인이 가능하며 로그인 시에는 아이디 유무 확인, 비밀번호 확인 과정을 거칩니다. 로그인에 성공할 시 유저의 로그인 일자가 업데이트됩니다.
-#### Controller
-```java
-/*LoginPage 연결 Controller*/
-	@GetMapping("/login")
-	public String getLogin(@RequestParam(value="user_id", required = false) String user_id, Model model) throws Exception {
-		model.addAttribute("user_id", user_id);
-		return "/member/login";
-	}
-	@PostMapping("/login")
-	public String PostLogin(@ModelAttribute("logInfo") MemberDTO mdto, HttpSession Msession, HttpServletResponse response) throws Exception {
-		mdto = mservice.memberLogin(mdto, response);
-		Msession.setAttribute("mdto", mdto);
-		return "/index";	
-	}
-```
-#### Service
-```java
-/*로그인 기능*/
-	public MemberDTO memberLogin(MemberDTO mdto, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		//아이디 확인
-		if(mdao.userID_check(mdto.getUser_id()) == 0) {
-			out.println("<script>");
-			out.println("alert('등록된 아이디가 존재하지 않습니다.')");
-			out.println("history.go(-1);");
-			out.println("</script>");
-			out.close();
-			return null;
-		}
-		//비밀번호 확인
-		else {
-			String user_pw = mdto.getUser_pw();
-			mdto = mdao.memberLogin(mdto.getUser_id());
-			if(!(mdto.getUser_pw().equals(user_pw))) {
-				out.println("<script>");
-				out.println("alert('비밀번호가 다릅니다.')");
-				out.println("history.go(-1);");
-				out.println("</script>");
-				out.close();
-				return null;
-			}
-			//이메일 인증 확인
-			else if(!(mdto.getApprovalStatus().equals("true"))) {
-				out.println("<script>");
-				out.println("alert('이메일 인증 후 로그인 하세요.')");
-				out.println("history.go(-1);");
-				out.println("</script>");
-				out.close();
-				return null;
-			}
-			//로그인 성공
-			else {
-				mdao.update_log(mdto.getUser_id());
-				return mdto;
-			}
-			
-		}
-	}
-```
-#### DAO
-```java
-<!-- 아이디 유무 체크 -->
-  <select id="userID_check" resultType="int">
-    select count(*)
-    from member 
-    where user_id=#{user_id};
-  </select>
-<!-- 로그인 -->
-  <select id="memberLogin" parameterType="String" resultType="com.niiki.dto.MemberDTO">
-    select *  
-    from member
-    where user_id=#{user_id}
-  </select>
-<!-- 로그인 일자 업데이트 -->
-  <update id="update_log" parameterType="String">
-    update member
-    set logDate = now()
-    where user_id = #{user_id}
-  </update>
-```
+
 ### 회원가입
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/71121964/107344598-fab35f80-6b05-11eb-9381-23747c04c6a6.gif)
 > 회원가입 관련 창입니다. 회원가입을 할 동안 아래와 같은 확인 과정을 가집니다.
@@ -217,12 +134,142 @@
     from member 
     where user_id=#{user_id};
   </select>
-<!-- 아이디 유무 체크 -->	
+<!-- 회원가입 -->	
   <insert id="memberJoin">
     insert into member values(
     #{user_id}, #{user_pw}, #{user_name}, #{user_birth}, #{user_gender}, #{user_email}, now(), now(), 'false', #{approvalKey}, null)
   </insert>
 ```
+
+### 로그인 페이지 
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/71121964/106282509-068c5f80-6284-11eb-933d-236eb73f99fc.gif)
+> 로그인 후 메인 화면의 문구가 변경돼 사용자를 반겨줍니다. 이메일 인증을 받아야 로그인이 가능하며 로그인 시에는 아이디 유무 확인, 비밀번호 확인 과정을 거칩니다. 로그인에 성공할 시 유저의 로그인 일자가 업데이트됩니다.
+#### Controller
+```java
+/*LoginPage 연결 Controller*/
+	@GetMapping("/login")
+	public String getLogin(@RequestParam(value="user_id", required = false) String user_id, Model model) throws Exception {
+		model.addAttribute("user_id", user_id);
+		return "/member/login";
+	}
+	@PostMapping("/login")
+	public String PostLogin(@ModelAttribute("logInfo") MemberDTO mdto, HttpSession Msession, HttpServletResponse response) throws Exception {
+		mdto = mservice.memberLogin(mdto, response);
+		Msession.setAttribute("mdto", mdto);
+		return "/index";	
+	}
+```
+#### Service
+```java
+/*로그인 기능*/
+	public MemberDTO memberLogin(MemberDTO mdto, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		//아이디 확인
+		if(mdao.userID_check(mdto.getUser_id()) == 0) {
+			out.println("<script>");
+			out.println("alert('등록된 아이디가 존재하지 않습니다.')");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		}
+		//비밀번호 확인
+		else {
+			String user_pw = mdto.getUser_pw();
+			mdto = mdao.memberLogin(mdto.getUser_id());
+			if(!(mdto.getUser_pw().equals(user_pw))) {
+				out.println("<script>");
+				out.println("alert('비밀번호가 다릅니다.')");
+				out.println("history.go(-1);");
+				out.println("</script>");
+				out.close();
+				return null;
+			}
+			//이메일 인증 확인
+			else if(!(mdto.getApprovalStatus().equals("true"))) {
+				out.println("<script>");
+				out.println("alert('이메일 인증 후 로그인 하세요.')");
+				out.println("history.go(-1);");
+				out.println("</script>");
+				out.close();
+				return null;
+			}
+			//로그인 성공
+			else {
+				mdao.update_log(mdto.getUser_id());
+				return mdto;
+			}
+			
+		}
+	}
+```
+#### DAO
+```java
+<!-- 아이디 유무 체크 -->
+  <select id="userID_check" resultType="int">
+    select count(*)
+    from member 
+    where user_id=#{user_id};
+  </select>
+<!-- 로그인 -->
+  <select id="memberLogin" parameterType="String" resultType="com.niiki.dto.MemberDTO">
+    select *  
+    from member
+    where user_id=#{user_id}
+  </select>
+<!-- 로그인 일자 업데이트 -->
+  <update id="update_log" parameterType="String">
+    update member
+    set logDate = now()
+    where user_id = #{user_id}
+  </update>
+```
+
+### 아이디 찾기
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/71121964/107353008-e3796f80-6b0f-11eb-9896-186d58cd0e03.gif)
+> 이메일을 입력해 회원의 아이디를 찾을 수 있습니다.
+#### Controller
+```java
+//아이디 찾기
+	@GetMapping("/findIDForm")
+	public void findID() throws Exception {
+	};
+	
+	@PostMapping("/findIDResult")
+	public String findIDCheck(HttpServletResponse response, @RequestParam("user_email") String user_email, Model model) throws Exception{
+		model.addAttribute("user_id", mservice.findIDForm(response, user_email).getUser_id());
+		model.addAttribute("user_email", mservice.findIDForm(response, user_email).getUser_email());
+		return "/member/findIDResult";
+	};
+```
+#### Service
+```java
+public MemberDTO findIDForm(HttpServletResponse response, String user_email) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		MemberDTO id = mdao.findIDForm(user_email);
+		if(id == null) {
+			out.println("<script>");
+			out.println("alert('해당 이메일로 가입된 아이디가 존재하지 않습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			return id;
+		}
+	}
+```
+#### DAO
+```java
+<select id="findIDForm" parameterType="String" resultType="com.niiki.dto.MemberDTO">
+		select user_id, user_email
+		from member
+		where user_email = #{user_email}
+	</select>
+```
+
 ### 내 정보
 #### Controller
 ```java
@@ -244,26 +291,6 @@
 ```java
 ```
 ### 고민상담소
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
-### 아이디 찾기
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
-### 아이디 찾기 결과창
 #### Controller
 ```java
 ```
