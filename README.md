@@ -132,6 +132,12 @@
   </update>
 ```
 ### 회원가입
+![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/71121964/107344598-fab35f80-6b05-11eb-9381-23747c04c6a6.gif)
+> 회원가입 관련 창입니다. 회원가입을 할 동안 아래와 같은 확인 과정을 가집니다.
+>> 1. 이미 중복된 아이디가 존재한다면 가입 불가
+>> 2. 문자 길이가 8자 이하 20자 이상일 때, 공백이 존재할 때, 숫자 및 특수문자를 혼용하지 않았을 시 가입 불가
+>> 3. 비밀번호 중복 확인 시 입력한 비밀번호가 같지 않다면 가입 불가
+>> 4. 생년월일이 정상적이지 않을 시(ex:0000-00-35) 가입 불가
 #### Controller
 ```java
 /*회원가입 구현*/
@@ -161,9 +167,61 @@
 ```
 #### Service
 ```java
+/*가입관련 무작위 키 생성*/
+	public String createKey() {
+		String key="";
+		Random r = new Random();
+		
+		for(int i=0; i<8; i++) {
+			key += r.nextInt(10);
+		}
+		
+		return key;
+	}
+	/*End*/
+	
+/*회원가입 관련 기능*/
+	public int memberJoin(MemberDTO mdto, HttpServletResponse response) throws Exception {
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html;charset=utf-8");
+		
+		if(mdao.userID_check(mdto.getUser_id()) == 1) {
+			out.println("<script>");
+			out.println("alert('동일한 아이디가 존재합니다.');");
+			out.println("history.go(-1)");
+			out.println("</script>");
+			out.close();
+			return 0;
+		} else {
+			mdto.setApprovalKey(createKey());
+			mdao.memberJoin(mdto);
+			send_mail(mdto,"join");
+			return 1;
+		}
+	}
+	/*End*/
+	
+/*유저아이디 중복 체크*/
+	public void userID_check(String id, HttpServletResponse response) throws Exception {
+		PrintWriter out = response.getWriter();
+		out.println(mdao.userID_check(id));
+		out.close();
+	}
+	/*End*/
 ```
 #### DAO
 ```java
+<!-- 아이디 유무 체크 -->
+  <select id="userID_check" resultType="int">
+    select count(*)
+    from member 
+    where user_id=#{user_id};
+  </select>
+<!-- 아이디 유무 체크 -->	
+  <insert id="memberJoin">
+    insert into member values(
+    #{user_id}, #{user_pw}, #{user_name}, #{user_birth}, #{user_gender}, #{user_email}, now(), now(), 'false', #{approvalKey}, null)
+  </insert>
 ```
 ### 내 정보
 #### Controller
