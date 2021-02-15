@@ -272,6 +272,10 @@ public MemberDTO findIDForm(HttpServletResponse response, String user_email) thr
 ### 비밀번호 찾기
 ![ezgif com-gif-maker (4)](https://user-images.githubusercontent.com/71121964/107356838-a82d6f80-6b14-11eb-9d04-50d3923d848b.gif)
 > 아이디와 이메일을 입력해 회원의 변경된 비밀번호를 찾을 수 있습니다.
+>> 1. '로그인 하기' 버튼을 클릭 시
+>> - ![ezgif com-gif-maker (5)](https://user-images.githubusercontent.com/71121964/107934987-1ade9500-6fc4-11eb-9d46-af6f2ea6bbb2.gif)
+>> 2. '비밀번호 찾기' 버튼을 클릭 시
+>> - ![ezgif com-gif-maker (6)](https://user-images.githubusercontent.com/71121964/107936693-48c4d900-6fc6-11eb-9d71-99c26d9940b3.gif)
 #### Controller
 ```java
 //비밀번호 찾기
