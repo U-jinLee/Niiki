@@ -35,7 +35,6 @@
 - 고민상담소
   - 검색창
 - 아이디 찾기
-- 아이디 찾기 결과창
   - 로그인 하기
   - 비밀번호 찾기
 - 비밀번호 찾기
@@ -330,8 +329,41 @@ public void findPw(HttpServletResponse response, MemberDTO mdto) throws Exceptio
 ```
 
 ### 내 정보
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/71121964/108015297-4c527180-7053-11eb-8fbb-9ad5de0c0bee.png)
+> 회원의 정보 변경 가능 페이지 아래와 같은 정보를 수정할 수 있습니다.
+>> 사진 변경
+>> 회원정보 변경
+>> 비밀번호 변경
+>> 회원 탈퇴
 #### Controller
 ```java
+	@GetMapping("/myPage")
+	public String myPage() throws Exception {	
+		return "/member/myPage";
+	}
+		
+	@PostMapping("/updateMyPage")
+	public String myPage(@ModelAttribute MemberDTO mdto, HttpSession session, RedirectAttributes rttr) throws Exception {
+		session.setAttribute("mdto", mservice.updateMyPage(mdto));
+		rttr.addFlashAttribute("msg","회원정보 수정 완료");
+		return "redirect:/member/myPage";
+	}
+		
+	@PostMapping("updatePw")
+	public String updatePw(@ModelAttribute MemberDTO mdto, @RequestParam("old_pw") String old_pw, HttpSession session, HttpServletResponse response, RedirectAttributes rttr) throws Exception {
+		session.setAttribute("mdto", mservice.updatePw(mdto, old_pw, response));
+		rttr.addFlashAttribute("msg", "비밀번호 수정 완료");
+		return "redirect:/member/myPage";
+	}
+	//회원 탈퇴
+	@PostMapping("/withDrawal")
+	public String withDrawal(@ModelAttribute MemberDTO mdto, HttpSession session, HttpServletResponse response) 
+	throws Exception {
+		if(mservice.withDrawl(mdto, response)) {
+			session.invalidate();
+		}
+		return "redirect:/index";
+		}
 ```
 #### Service
 ```java
