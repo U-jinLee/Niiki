@@ -331,31 +331,31 @@ public void findPw(HttpServletResponse response, MemberDTO mdto) throws Exceptio
 ### 내 정보
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/71121964/108015297-4c527180-7053-11eb-8fbb-9ad5de0c0bee.png)
 > 회원의 정보 변경 가능 페이지 아래와 같은 정보를 수정할 수 있습니다.
->> 사진 변경
->> 회원정보 변경
->> 비밀번호 변경
->> 회원 탈퇴
+>> 1. 사진 변경
+>> 2. 회원정보 변경
+>> 3. 비밀번호 변경
+>> 4. 회원 탈퇴
 #### Controller
 ```java
 	@GetMapping("/myPage")
 	public String myPage() throws Exception {	
 		return "/member/myPage";
 	}
-		
+	// 회원정보 변경	
 	@PostMapping("/updateMyPage")
 	public String myPage(@ModelAttribute MemberDTO mdto, HttpSession session, RedirectAttributes rttr) throws Exception {
 		session.setAttribute("mdto", mservice.updateMyPage(mdto));
 		rttr.addFlashAttribute("msg","회원정보 수정 완료");
 		return "redirect:/member/myPage";
 	}
-		
+	// 비밀번호 수정	
 	@PostMapping("updatePw")
-	public String updatePw(@ModelAttribute MemberDTO mdto, @RequestParam("old_pw") String old_pw, HttpSession session, HttpServletResponse response, RedirectAttributes rttr) throws Exception {
+	public String updatePw(@ModelAttribute MemberDTO mdto, @RequestParam("old_pw") String old_pw, HttpSession session, 		HttpServletResponse response, RedirectAttributes rttr) throws Exception {
 		session.setAttribute("mdto", mservice.updatePw(mdto, old_pw, response));
 		rttr.addFlashAttribute("msg", "비밀번호 수정 완료");
 		return "redirect:/member/myPage";
 	}
-	//회원 탈퇴
+	// 회원 탈퇴
 	@PostMapping("/withDrawal")
 	public String withDrawal(@ModelAttribute MemberDTO mdto, HttpSession session, HttpServletResponse response) 
 	throws Exception {
@@ -364,12 +364,72 @@ public void findPw(HttpServletResponse response, MemberDTO mdto) throws Exceptio
 		}
 		return "redirect:/index";
 		}
+		
+	@GetMapping("/profile/{user_id}")	
+	public ResponseEntity<byte[]> getProfile(@PathVariable String user_id) throws Exception{
+		System.out.println("/user/profile"+user_id+"Post요청");
+		return null;
+	}
 ```
 #### Service
 ```java
+public MemberDTO updateMyPage(MemberDTO mdto) throws Exception {
+		mdao.updateMyPage(mdto);
+		return mdao.memberLogin(mdto.getUser_id());
+	}
+	
+public MemberDTO updatePw(MemberDTO mdto, String oldPw, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		if(!oldPw.equals(mdao.memberLogin(mdto.getUser_id()).getUser_pw())) {
+			out.println("<script>");
+			out.println("alert('기존 비밀번호가 다릅니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			mdao.updatePw(mdto);
+			return mdao.memberLogin(mdto.getUser_id());
+		}
+	}
+	
+public boolean withDrawl(MemberDTO mdto, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		if(mdao.withDrawal(mdto) != 1) {
+			out.println("<script>");
+			out.println("alert('회원탈퇴 실패');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 ```
 #### DAO
 ```java
+<!-- 회원정보 변경 -->
+	<update id="updateMyPage" parameterType="com.niiki.dto.MemberDTO">
+		update member 
+		set user_email = #{user_email} 
+		where user_id= #{user_id}
+	</update>
+<!-- 비밀번호 변경 -->
+	<update id="updatePw" parameterType="com.niiki.dto.MemberDTO">
+		update member 
+		set user_pw = #{user_pw}
+		where user_id= #{user_id}
+	</update>
+<!-- 회원 탈퇴 -->
+	<delete id="withDrawal" parameterType="com.niiki.dto.MemberDTO">
+		delete 
+		from member 
+		where user_id= #{user_id} and user_pw= #{user_pw};
+	</delete>
 ```
 ### 내 일기장
 #### Controller
