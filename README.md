@@ -7,7 +7,7 @@
 - IDE: Eclipse
 - Server: Apache tomcat 9.0
 - DB: MySQL
-- Language: JAVA, JSP, JavaScropt(jquery)
+- Language: JAVA, JSP, JavaScript(jquery)
 - framework: Spring, bootstrap
 - ORM: MyBatis
 ## UI설계
