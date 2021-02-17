@@ -472,6 +472,7 @@ public boolean withDrawl(MemberDTO mdto, HttpServletResponse response) throws Ex
 ```java
 ```
 ### 글쓰기 창
+![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/71121964/108163618-b1c95f80-7132-11eb-82ba-8e338c2a4d2c.gif)
 #### Controller
 ```java
 ```
@@ -481,7 +482,13 @@ public boolean withDrawl(MemberDTO mdto, HttpServletResponse response) throws Ex
 #### DAO
 ```java
 ```
-### 글수정 창
+### 글보기 상세
+![ezgif com-gif-maker (12)](https://user-images.githubusercontent.com/71121964/108167397-f952ea00-7138-11eb-85ca-d5fd6669e454.gif)
+> 글을 클릭했을 시 나오는 페이지로 '글 수정'과 '글 삭제'를 할 수 있습니다. 자신이 쓴 글이 아닌 경우 '글 수정'과 '글 삭제'가 불가능합니다.
+>> 1. 글 수정
+>> - ![ezgif com-gif-maker (10)](https://user-images.githubusercontent.com/71121964/108165529-10dca380-7136-11eb-9bf8-7f18bba5a0fb.gif)
+>> 2. 글 삭제
+>> - ![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/71121964/108165774-7761c180-7136-11eb-9ed5-4972cc2b5cdc.gif)
 #### Controller
 ```java
 ```
