@@ -23,28 +23,21 @@
 🚧
 #### [사용자 기능]
 ------------
-- 로그인 페이지
 - 회원가입
   - 이메일 인증
-- 내 정보
-  - 사진 변경
-  - 회원 정보 변경
-  - 비밀번호 변경
-  - 회원탈퇴
-- 내 일기장
-- 고민상담소
-  - 검색창
+- 로그인 페이지
 - 아이디 찾기
-  - 로그인 하기
-  - 비밀번호 찾기
+  - '로그인 하기'
+  - '비밀번호 찾기'
 - 비밀번호 찾기
-- 게시글_고민상담소
-  - 추천하기
-- 게시글_일기장
-  - 공유하기
+- 내 정보
 - 글쓰기 창
-- 글수정 창
-- 이메일 보내기 결과창
+- 글보기 상세
+  - '글 수정'
+  - '글 삭제'
+- 댓글 보기
+- 이메일 보기 결과창
+
 ## 구현 기능 설명
 
 ### 회원가입
@@ -431,57 +424,10 @@ public boolean withDrawl(MemberDTO mdto, HttpServletResponse response) throws Ex
 		where user_id= #{user_id} and user_pw= #{user_pw};
 	</delete>
 ```
-### 내 일기장
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
-### 고민상담소
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
-### 게시글_고민상담소
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
-### 게시글_일기장
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
+
 ### 글쓰기 창
 ![ezgif com-gif-maker (7)](https://user-images.githubusercontent.com/71121964/108163618-b1c95f80-7132-11eb-82ba-8e338c2a4d2c.gif)
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
+
 ### 글보기 상세
 ![ezgif com-gif-maker (12)](https://user-images.githubusercontent.com/71121964/108167397-f952ea00-7138-11eb-85ca-d5fd6669e454.gif)
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/71121964/108175516-353f7c80-7144-11eb-85fe-0ee6efc2d2e6.gif)
@@ -493,29 +439,9 @@ public boolean withDrawl(MemberDTO mdto, HttpServletResponse response) throws Ex
 >> 2. 글 삭제
 >> - ![ezgif com-gif-maker (11)](https://user-images.githubusercontent.com/71121964/108165774-7761c180-7136-11eb-9ed5-4972cc2b5cdc.gif)
 
-#### Controller
-```java
-```
-#### Service
-```java
-```
-#### DAO
-```java
-```
 ### 댓글 달기
 ![ezgif com-gif-maker (2)](https://user-images.githubusercontent.com/71121964/108178249-8f8e0c80-7147-11eb-87d6-78632cfc8bef.gif)
-#### Controller
-```java
 
-```
-#### Service
-```java
-
-```
-#### DAO
-```java
-
-```
 ### 이메일 보내기 결과창
 #### Service
 ```java
